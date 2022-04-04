@@ -16,13 +16,12 @@
 //@Slf4j
 //@Configuration
 //@RequiredArgsConstructor
-//public class DBJobConfiguration {
-//
+//public class StepContributionConfiguration {
 //    private final JobBuilderFactory jobBuilderFactory;
 //    private final StepBuilderFactory stepBuilderFactory;
 //
 //    @Bean
-//    public Job job() {
+//    public Job stepContJob() {
 //        return jobBuilderFactory.get("job")
 //                .start(step1())
 //                .next(step2())
@@ -35,6 +34,7 @@
 //                .tasklet(new Tasklet() {
 //                    @Override
 //                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+//                        log.info(">> step1 has executed");
 //                        return RepeatStatus.FINISHED;
 //                    }
 //                })
@@ -47,6 +47,7 @@
 //                .tasklet(new Tasklet() {
 //                    @Override
 //                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+//                        log.info(">> step2 has executed");
 //                        return RepeatStatus.FINISHED;
 //                    }
 //                })

@@ -24,6 +24,8 @@ spring:
   batch:
     jdbc:
       initialize-schema: embedded
+    job:
+      enabled: false  #Job이 자동으로 실행되지 않도록 설정, JobRunner에서 실행 되도록
 
 ---
 
@@ -36,4 +38,4 @@ spring:
       jdbc-url: jdbc:mysql://localhost:3306/mysql?useUnicode=true&characterEncoding=utf8
       username: root
       password: root
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver

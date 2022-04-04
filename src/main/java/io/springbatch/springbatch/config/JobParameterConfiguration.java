@@ -3,6 +3,7 @@
 //import lombok.RequiredArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.batch.core.Job;
+//import org.springframework.batch.core.JobParameters;
 //import org.springframework.batch.core.Step;
 //import org.springframework.batch.core.StepContribution;
 //import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -13,10 +14,12 @@
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
 //
+//import java.util.Map;
+//
 //@Slf4j
 //@Configuration
 //@RequiredArgsConstructor
-//public class DBJobConfiguration {
+//public class JobParameterConfiguration {
 //
 //    private final JobBuilderFactory jobBuilderFactory;
 //    private final StepBuilderFactory stepBuilderFactory;
@@ -24,17 +27,30 @@
 //    @Bean
 //    public Job job() {
 //        return jobBuilderFactory.get("job")
-//                .start(step1())
+//                .start(paramTestStep())
 //                .next(step2())
 //                .build();
 //    }
 //
 //    @Bean
-//    public Step step1() {
-//        return stepBuilderFactory.get("step1")
+//    public Step paramTestStep() {
+//        return stepBuilderFactory.get("paramTestStep")
 //                .tasklet(new Tasklet() {
 //                    @Override
 //                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+//                        JobParameters jobParameters = contribution.getStepExecution().getJobParameters();
+//                        jobParameters.getString("name");
+//                        jobParameters.getLong("seq");
+//                        jobParameters.getDate("date");
+//                        jobParameters.getDouble("age");
+//
+//                        Map<String, Object> jobParameters1 = chunkContext.getStepContext().getJobParameters();
+//
+//                        System.out.println("jobParameters.getString(\"name\") = " + jobParameters.getString("name"));
+//                        System.out.println("jobParameters.getLong(\"seq\") = " + jobParameters.getLong("seq"));
+//                        System.out.println("jobParameters.getDate(\"date\") = " + jobParameters.getDate("date"));
+//                        System.out.println("jobParameters.getDouble(\"age\") = " + jobParameters.getDouble("age"));
+//
 //                        return RepeatStatus.FINISHED;
 //                    }
 //                })
