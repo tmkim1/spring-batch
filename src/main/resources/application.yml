@@ -2,6 +2,9 @@ spring:
   profiles:
     active: local
   batch:
+    job:
+      names: ${job.name:NONE} #NONE은 임의의 문자를 의미 (하드 코딩으로 작성해도 동작하지만, 동적으로 처리하기 위해 외부에서 값을 받아서  처리
+      enabled: true
     jdbc:
       initialize-schema: always
   h2:
