@@ -47,6 +47,7 @@ public class FirstJobConfiguration {
                         return RepeatStatus.FINISHED;
                     }
                 })
+                .allowStartIfComplete(true)
                 .build();
     }
 
@@ -60,6 +61,7 @@ public class FirstJobConfiguration {
                         return RepeatStatus.FINISHED;
                     }
                 })
+                .startLimit(3) //해당 스텝의 최대 실행 횟수를 3으로 제한한다.
                 .build();
     }
 }
