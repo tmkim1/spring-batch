@@ -42,7 +42,7 @@ public class ChunkConfiguration {
     public Step chunkStep1() {
         return this.stepBuilderFactory.get("chunkStep1")
                 //chunk API 사용
-                .<String, String>chunk(5)
+                .<String, String>chunk(3)
                 .reader(new ListItemReader<>(Arrays.asList("item1", "itme2", "item3", "item4", "item5")))
                 .processor(new ItemProcessor<String, String>() {
                     @Override
@@ -55,8 +55,7 @@ public class ChunkConfiguration {
                 .writer(new ItemWriter<String>() {
                     @Override
                     public void write(List<? extends String> items) throws Exception {
-                        Thread.sleep(300);
-                        log.info("write items" + items);
+                        items.forEach(item -> log.info("write item: {}", item));
                     }
                 })
                 .build();
