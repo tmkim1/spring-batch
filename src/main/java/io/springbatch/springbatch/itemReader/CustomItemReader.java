@@ -8,7 +8,6 @@ import org.springframework.batch.item.UnexpectedInputException;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class CustomItemReader implements ItemReader<Customer> {
 
     private final List<Customer> list;
