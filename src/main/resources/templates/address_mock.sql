@@ -10,12 +10,12 @@ insert into customer (id, firstname, lastname, birthdate) values (9, 'Montgomery
 insert into customer (id, firstname, lastname, birthdate) values (10, 'Leicester', 'Abramovicz', '1/23/2022');
 
 insert into address (id, location, customer_id) values (1, 'location1', 1);
-insert into address (id, location, customer_id) values (2, 'location1', 2);
-insert into address (id, location, customer_id) values (3, 'location1', 3);
-insert into address (id, location, customer_id) values (4, 'location1', 4);
-insert into address (id, location, customer_id) values (5, 'location1', 5);
-insert into address (id, location, customer_id) values (6, 'location1', 6);
-insert into address (id, location, customer_id) values (7, 'location1', 7);
-insert into address (id, location, customer_id) values (8, 'location1', 8);
-insert into address (id, location, customer_id) values (9, 'location1', 9);
-insert into address (id, location, customer_id) values (10, 'location1',10);
+insert into address (id, location, customer_id) values (2, 'location2', 2);
+insert into address (id, location, customer_id) values (3, 'location3', 3);
+insert into address (id, location, customer_id) values (4, 'location4', 4);
+insert into address (id, location, customer_id) values (5, 'location5', 5);
+insert into address (id, location, customer_id) values (6, 'location6', 6);
+insert into address (id, location, customer_id) values (7, 'location7', 7);
+insert into address (id, location, customer_id) values (8, 'location8', 8);
+insert into address (id, location, customer_id) values (9, 'location9', 9);
+insert into address (id, location, customer_id) values (10, 'location10',10);

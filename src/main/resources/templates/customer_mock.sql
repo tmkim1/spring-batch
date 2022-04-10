@@ -2,8 +2,18 @@ create table customer (
 	id int unsigned not null auto_increment PRIMARY KEY,
 	firstname VARCHAR(255) default null,
 	lastname VARCHAR(255) default null,
-	birthdate varchar(255),
+	birthdate varchar(255)
 )
+
+create table customer2
+(
+    id        bigint       not null
+        primary key,
+    birthdate varchar(255) null,
+    firstname varchar(255) null,
+    lastname  varchar(255) null
+);
+
 insert into customer (id, firstname, lastname, birthdate) values (1, 'Baxter', 'Branthwaite', '12/21/2021');
 insert into customer (id, firstname, lastname, birthdate) values (2, 'Aluino', 'Sonschein', '8/20/2021');
 insert into customer (id, firstname, lastname, birthdate) values (3, 'Fianna', 'Claybourn', '10/27/2021');
