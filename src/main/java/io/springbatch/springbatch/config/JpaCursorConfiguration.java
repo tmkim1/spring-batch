@@ -32,6 +32,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class JpaCursorConfiguration {
+    int i = 1;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory entityManagerFactory;
@@ -55,10 +56,13 @@ public class JpaCursorConfiguration {
     }
 
     private ItemWriter<Customer> jpaCursorItemWriter() {
+
         return items -> {
             for (Customer item : items) {
                 System.out.println(item.toString());
             }
+            log.info("jpaCursor Size Test: {}", i);
+            i++;
         };
     }
 
@@ -74,17 +78,4 @@ public class JpaCursorConfiguration {
                 .build();
     }
 
-
-    @Bean
-    public Step jpaCursorStep2() {
-        return this.stepBuilderFactory.get("jpaCursorStep2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                        log.info(">> jpaCursorStep2 has executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                })
-                .build();
-    }
 }

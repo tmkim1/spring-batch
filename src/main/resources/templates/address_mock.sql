@@ -1,0 +1,21 @@
+insert into customer (id, firstname, lastname, birthdate) values (1, 'Baxter', 'Branthwaite', '12/21/2021');
+insert into customer (id, firstname, lastname, birthdate) values (2, 'Aluino', 'Sonschein', '8/20/2021');
+insert into customer (id, firstname, lastname, birthdate) values (3, 'Fianna', 'Claybourn', '10/27/2021');
+insert into customer (id, firstname, lastname, birthdate) values (4, 'Aurthur', 'Bogace', '8/29/2021');
+insert into customer (id, firstname, lastname, birthdate) values (5, 'Corny', 'Keysall', '5/20/2021');
+insert into customer (id, firstname, lastname, birthdate) values (6, 'Harriett', 'Maundrell', '7/23/2021');
+insert into customer (id, firstname, lastname, birthdate) values (7, 'Boniface', 'Giovannoni', '6/5/2021');
+insert into customer (id, firstname, lastname, birthdate) values (8, 'Corny', 'Bleasby', '3/14/2022');
+insert into customer (id, firstname, lastname, birthdate) values (9, 'Montgomery', 'Minot', '1/19/2022');
+insert into customer (id, firstname, lastname, birthdate) values (10, 'Leicester', 'Abramovicz', '1/23/2022');
+
+insert into address (id, location, customer_id) values (1, 'location1', 1);
+insert into address (id, location, customer_id) values (2, 'location1', 2);
+insert into address (id, location, customer_id) values (3, 'location1', 3);
+insert into address (id, location, customer_id) values (4, 'location1', 4);
+insert into address (id, location, customer_id) values (5, 'location1', 5);
+insert into address (id, location, customer_id) values (6, 'location1', 6);
+insert into address (id, location, customer_id) values (7, 'location1', 7);
+insert into address (id, location, customer_id) values (8, 'location1', 8);
+insert into address (id, location, customer_id) values (9, 'location1', 9);
+insert into address (id, location, customer_id) values (10, 'location1',10);

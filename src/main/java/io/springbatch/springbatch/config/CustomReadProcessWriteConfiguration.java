@@ -60,8 +60,9 @@ public class CustomReadProcessWriteConfiguration {
     @Bean
     public ItemReader<Customer> customerItemReader() {
         return new CustomItemReader(Arrays.asList(
-                new Customer(1L,"kim","taemin","10/21/2021")
-                ,new Customer(2L,"kim","taemin","10/21/2021")
-                ,new Customer(3L,"kim","taemin","10/21/2021")));
+//                new Customer(1L,"kim","taemin","10/21/2021")
+//                ,new Customer(2L,"kim","taemin","10/21/2021")
+//                ,new Customer(3L,"kim","taemin","10/21/2021"))
+                ));
     }
 }
