@@ -26,9 +26,6 @@ import org.springframework.context.annotation.Primary;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 @Configuration
 @RequiredArgsConstructor
@@ -39,9 +36,11 @@ public class JpaPagingConfiguration {
     private final EntityManagerFactory entityManagerFactory;
     private final DataSource dataSource;
 
+    private static final int chunkSize = 3; //chunkSize와 pagingSize를 동일하게 맞추어야 성능 및 영속성 이슈를 방지할 수 있다.
+
     @Bean
     @Primary
-    public Job jpaPagingJob() {
+    public Job jpaPagingJob() throws Exception {
         return this.jobBuilderFactory.get("jpaPagingJob")
                 .incrementer(new RunIdIncrementer())
                 .start(jpaPagingStep1())
@@ -49,9 +48,9 @@ public class JpaPagingConfiguration {
     }
 
     @Bean
-    public Step jpaPagingStep1() {
+    public Step jpaPagingStep1() throws Exception {
         return this.stepBuilderFactory.get("jpaPagingStep1")
-                .<Customer, Customer2>chunk(3)
+                .<Customer, Customer2>chunk(chunkSize)
                 .reader(jpaPagingItemReader())
                 .processor(customerItemProcessor())
                 .writer(jpaItemWriter())
@@ -59,11 +58,12 @@ public class JpaPagingConfiguration {
     }
 
     @Bean
-    public ItemReader<? extends Customer> jpaPagingItemReader() {
+    public ItemReader<? extends Customer> jpaPagingItemReader() throws Exception {
+
         return new JpaPagingItemReaderBuilder<Customer>()
                 .name("jpaPagingItemReader")
                 .entityManagerFactory(entityManagerFactory)
-                .pageSize(3)
+                .pageSize(chunkSize)
                 .queryString("select c from Customer c join fetch c.address")
                 .build();
     }
@@ -88,6 +88,7 @@ public class JpaPagingConfiguration {
                 .dataSource(dataSource)
                 .sql("insert into customer2 values (:id, :firstname, :lastname, :birthdate")
                 .beanMapped() //일반 클래스 타입으로 매핑 (파라미터 매핑: Customer)
+//                .assertUpdates(true) //적어도 하나의 항목이 행을 업데이트하거나 삭제하지 않을 경우 예외를 throw 기본 값: true
 //                .columnMapped() //key, value 기반으로 insert SQL의 Values를 매핑 (Map)
                 .build();
     }
