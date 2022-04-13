@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.6.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10" // (1)
     id 'java'
 }
 
@@ -25,12 +26,31 @@ dependencies {
     implementation 'com.h2database:h2'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.querydsl:querydsl-jpa' // (2)
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
     runtimeOnly 'mysql:mysql-connector-java'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+def querydslSrcDir = 'src/main/generated'
+
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    jpa = true
+    querydslSourcesDir = querydslSrcDir
+}
+
+compileQuerydsl{ // querydsl 컴파일시 사용하는 애노테이션프로세서 ('com.querydsl.apt.jpa.JPAAnnotationProcessor')의 경로를 querydsl 이 지정한 경로를 이용한다는 선언
+    options.annotationProcessorPath = configurations.querydsl
+}
+configurations { querydsl.extendsFrom compileClasspath }
+
+sourceSets { main { java { srcDirs = ['src/main/java', querydslSrcDir] } } }
+
+tasks.withType(JavaCompile) { options.annotationProcessorGeneratedSourcesDirectory = file(querydslSrcDir) }
+
 
 tasks.named('test') {
     useJUnitPlatform()

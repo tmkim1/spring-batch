@@ -2,6 +2,7 @@ package io.springbatch.springbatch.config;
 
 import io.springbatch.springbatch.domain.Customer;
 import io.springbatch.springbatch.domain.Customer2;
+import io.springbatch.springbatch.itemReader.QuerydslPagingItemReader;
 import io.springbatch.springbatch.processor.CustomItemProcessor;
 import io.springbatch.springbatch.processor.CustomerItemProcessor;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,9 @@ import org.springframework.context.annotation.Primary;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import static io.springbatch.springbatch.domain.QAddress.address;
+import static io.springbatch.springbatch.domain.QCustomer.customer;
+
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
@@ -51,10 +55,19 @@ public class JpaPagingConfiguration {
     public Step jpaPagingStep1() throws Exception {
         return this.stepBuilderFactory.get("jpaPagingStep1")
                 .<Customer, Customer2>chunk(chunkSize)
-                .reader(jpaPagingItemReader())
+                .reader(querydslPagingItemReader())
                 .processor(customerItemProcessor())
                 .writer(jpaItemWriter())
                 .build();
+    }
+
+    @Bean
+    public QuerydslPagingItemReader<Customer> querydslPagingItemReader() {
+        log.info("Querydsl Test");
+        return new QuerydslPagingItemReader<>(entityManagerFactory, chunkSize, jpaQueryFactory -> jpaQueryFactory
+                .selectFrom(customer)
+                .join(customer.address, address)
+        );
     }
 
     @Bean
